@@ -1,0 +1,48 @@
+{
+ "Halfmeca    Sun Feb 3 1:30:08 2019" : 
+ {
+  "messageDate" : "Sun Feb 3 1:30:08 2019",
+  "messageHeader" : "Halfmeca    Sun Feb 3 1:30:08 2019",
+  "messagePlainText" : "Hello world\n",
+  "messageSender" : "Tim.Lindquist",
+  "messageSubject" : "Test",
+  "messageTarget" : "Halfmeca"
+ },
+ "One more     Sun Feb 3 10:04:26 2019" : 
+ {
+  "messageDate" : "Sun Feb 3 10:04:26 2019",
+  "messageHeader" : "One more     Sun Feb 3 10:04:26 2019",
+  "messagePlainText" : "asfasfasfasfasfas",
+  "messageSender" : "nsbryan1",
+  "messageSubject" : "Adsasdas",
+  "messageTarget" : "Halfmeca"
+ },
+ "Re: Tue Apr  9 12:42:45 2019" : 
+ {
+  "messageDate" : "Tue Apr  9 12:42:45 2019",
+  "messageHeader" : "Re: Tue Apr  9 12:42:45 2019",
+  "messagePlainText" : "\n\n\n\n\n\n-----------------------------------",
+  "messageSender" : "",
+  "messageSubject" : "Re:",
+  "messageTarget" : ""
+ },
+ "Re:Test Sun Mar 17 20:20:41 2019" : 
+ {
+  "messageDate" : "Sun Mar 17 20:20:41 2019",
+  "messageHeader" : "Re:Test Sun Mar 17 20:20:41 2019",
+  "messagePlainText" : "\n\n\nWeird testing thing whoo\n\n\n-----------------------------------Hello world\n",
+  "messageSender" : "Halfmeca",
+  "messageSubject" : "Re:Test",
+  "messageTarget" : "Tim.Lindquist"
+ },
+ "name" : "bob",
+ "nsbryan1    Fri Feb 22 0:54:18 2019" : 
+ {
+  "messageDate" : "Fri Feb 22 0:54:18 2019",
+  "messageHeader" : "nsbryan1    Fri Feb 22 0:54:18 2019",
+  "messagePlainText" : "\nasdasdasdasdasdasdasdasdasdasdasdasdasdad\n\n\n\n----------------------------------\n\n\nThis is a test of the reply system and making sure the to and from system works correctly\n\n\n\n----------------------------------\nHello world\n",
+  "messageSender" : "Halfmeca",
+  "messageSubject" : "Re:Re:Test",
+  "messageTarget" : "nsbryan1"
+ }
+}

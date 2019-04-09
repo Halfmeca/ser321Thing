@@ -1,0 +1,33 @@
+[
+    {
+        "method": "saveToJsonFile",
+        "params":[ ],
+        "returns": true
+    },
+    {
+        "method": "resetFromJsonFile",
+        "params":[ ],
+        "returns": true
+    },
+    {   // addMessage(jsonOfAMessage) --> bool
+        "method": "addMessage",
+        "params":[{ }],
+        "returns": true
+    },
+    {   // removeMessage(string) --> bool
+        "method": "removeMessage",
+        "params":["Tim"],
+        "returns": true
+    },
+    {   // getMessage(string) --> jsonOfAMessage
+        "method": "getMessage",
+        "params":["Tim"],
+        "returns":{ }
+    },
+    {   // getHeaders() --> json array of headers 
+        "method": "getHeaders",
+        "params":["Tim"],
+        "returns": [ ]
+    }
+    
+]

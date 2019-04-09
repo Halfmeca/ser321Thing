@@ -1,0 +1,138 @@
+<project name="Ser321 Assign5 C++ Message GUI."
+         default="targets" basedir="."
+         xmlns="antlib:org.apache.tools.ant">
+   <taskdef resource="cpptasks.tasks"/>
+   <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
+   <property name="src" value="./src" />
+   <property name="lib" value="./lib" />
+   <property name="src.dir" value="src"/>
+   <property name="src.cpp.dir" value="src"/>
+   <property name="dist.dir" value="bin"/>
+   <property name="obj.dir" value="obj"/>
+   <property name="json.file.name" value="messagesMethod.json"/>
+   <property name="port" value="8080" />
+   <property name="userId" value="Halfmeca" />
+   <property name="host" value="localhost" />
+   <property environment="env"/>
+
+   <target name="targets">
+     <echo message="targets are clean, prepare, build, execute, targets"/>
+     <echo message="execute manually with: ./bin/client"/>
+   </target>
+
+   <target name="clean">
+     <delete dir="${dist.dir}" failonerror="false"/>
+     <delete dir="${obj.dir}" failonerror="false"/>
+      <delete file="${src.cpp.dir}/server/messageserverstub.h"
+              failonerror="false"/>
+      <delete file="${src.cpp.dir}/client/messageserverstub.h"
+              failonerror="false"/>
+   </target>
+
+   <target name="prepare">
+      <!-- Create the time stamp -->
+      <tstamp/>
+      <!-- Create the build directory structure used by compile -->
+      <echo message="home defined as: ${env.HOME}" />
+      <mkdir dir="${obj.dir}/client" />
+      <mkdir dir="${obj.dir}/server" />
+      <mkdir dir="${dist.dir}" />
+      <mkdir dir="${dist.dir}/client" />
+      <mkdir dir="${dist.dir}/server" />
+      <if>
+         <isset property="env.USERNAME"/>
+         <then>
+            <echo message="detected username is: ${env.USERNAME}"/>
+         </then>
+      <elseif>
+         <isset property="env.USER"/>
+         <then>
+            <echo message="detected user is: ${env.USER}"/>
+         </then>
+      </elseif>
+      </if>
+      <echo message="host name is: ${os.name}"/>
+      <echo message="host arch is: ${os.arch}"/>
+      <echo message="host version is: ${os.version}"/>
+      <echo message="base directory is: ${basedir}"/>
+      <property name="includepath" value="/usr/local/include:/usr/include/jsoncpp"/>
+      <property name="client.lib.path" value="/usr/local/lib"/>
+      <property name="client.lib.list" value="jsoncpp,jsonrpccpp-client,jsonrpccpp-common,microhttpd,stdc++,fltk"/>
+      <property name="server.lib.path" value="/usr/local/lib"/>
+      <property name="server.lib.list" value="jsoncpp,jsonrpccpp-server,jsonrpccpp-common,microhttpd,stdc++"/>
+      <property name="cxxflag" value="-std=c++14"/>
+
+   </target>
+
+  <target name="generate.server.stub" depends="prepare">
+
+    <exec dir="${basedir}" executable="jsonrpcstub">
+        <arg line="${json.file.name} --cpp-server=messageserverstub"/>
+      </exec>
+      <copy file="messageserverstub.h"
+            tofile="${src.cpp.dir}/server/messageserverstub.h"/>
+      <delete file="messageserverstub.h"/>
+
+  </target>
+
+  <target name="generate.client.stub" depends="prepare">
+
+    <exec dir="${basedir}" executable="jsonrpcstub">
+        <arg line="${json.file.name} --cpp-client=messageserverstub"/>
+      </exec>
+      <copy file="messageserverstub.h"
+            tofile="${src.cpp.dir}/client/messageserverstub.h"/>
+      <delete file="messageserverstub.h"/>
+
+  </target>
+
+
+   <target name="build.server" depends="generate.server.stub">
+      <cc outtype="executable" subsystem="console"
+         outfile="${dist.dir}/server/server"
+         objdir="${obj.dir}/server/">
+      <compiler name="g++"/>
+      <compilerarg value="${cxxflag}"/>
+      <includepath>
+        <pathelement path="${includepath}"/>
+      </includepath>
+      <libset dir="${server.lib.path}" libs="${server.lib.list}"/>
+      <fileset dir="${src.cpp.dir}/server/" includes="MessageServer.cpp,GroupMessage.cpp"/>
+      <fileset dir="${src.cpp.dir}/client/" includes="Message.cpp"/>
+      </cc>
+   </target>
+
+   <target name="build.client" depends="generate.client.stub">
+      <cc outtype="executable" subsystem="console"
+          outfile="${dist.dir}/client/client"
+          objdir="${obj.dir}/client/">
+    <compiler name="g++"/>
+    <compilerarg value="${cxxflag}"/>
+          <includepath>
+             <pathelement path="${includepath}"/>
+          </includepath>
+          <libset dir="${client.lib.path}" libs="${client.lib.list}"/>
+          <fileset dir="${src}/client/" includes="MessageGui.cpp,main.cpp,Message.cpp"/>
+
+      </cc>
+   </target>
+
+   <target name="execute.client" depends="build.client">
+      
+    <exec executable="./bin/client/client">
+      <arg value="${host}"/> 
+      <arg value="${port}"/>
+      <arg value="${userId}"/>
+    </exec>
+
+   </target>
+
+   <target name="execute.server" depends="build.server">
+    
+    <exec executable="./bin/server/server">
+     <arg value="${port}"/>
+   </exec>
+   </target>
+
+</project>
